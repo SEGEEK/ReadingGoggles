@@ -7,6 +7,10 @@ angular.module('ReadingGooglesApp', [])
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/feed/:feedName', {
+        templateUrl: 'views/feed.html',
+        controller: 'FeedCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
