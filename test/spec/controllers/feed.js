@@ -6,17 +6,32 @@ describe('Controller: FeedCtrl', function () {
   beforeEach(module('ReadingGooglesApp'));
 
   var FeedCtrl,
-    scope;
+    scope,
+    feedParserMock;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
+    
+    //create mock for Feed Parser ...
+    feedParserMock = { 
+        getFeedData : jasmine.createSpy().andReturn( {
+            success: jasmine.createSpy()
+     })};
     FeedCtrl = $controller('FeedCtrl', {
-      $scope: scope
+      $scope: scope,
+      $routeParams: { feedName: "Dilbert" },
+      feedParser : feedParserMock
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('should pull feedname from $routeParams', function () {
+    expect(scope.feedName).toBe('Dilbert');
+  });
+  
+  it('should use feedParser from Dilbert', function() {
+    scope.changeFeed('Dilbert');
+    expect(feedParserMock.getFeedData).toHaveBeenCalledWith(
+        "http://feed.dilbert.com/dilbert/daily_strip");
   });
 });
