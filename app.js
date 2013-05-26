@@ -19,6 +19,10 @@ app.get('/', function(request, response) {
   response.render('index.html')
 });
 
+app.get('/feedData/:feedUrl/', function( request, response) {
+    response.json({ posts: [ {name: request.params.feedUrl, data: "This is post data"} ]});
+});
+
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
   console.log("Listening on " + port);
