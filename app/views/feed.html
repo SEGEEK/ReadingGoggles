@@ -1,1 +1,7 @@
-<p>This is the feed view for feed {{feedName}}</p>
+<!--<div>{{feedData.meta}}</div>-->
+<h1>{{feedData.meta.title}}</h1>
+<p>{{feedData.meta.description}}</p>
+<div ng-repeat="article in feedData.articles">
+    <h2>{{article.title}}</h2>
+    <div ng-bind-html-unsafe="article.summary"></div>
+</div>
